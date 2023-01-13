@@ -61,7 +61,7 @@ mainContainer.append(fragment)
  */
 function importTemplate(nodeTemplate, json) {
     if(json.user.username == 'juliusomo') {
-        //nodeTemplate.querySelector('figcaption h2').insertAdjacentHTML('afterend', `<p class ='user__me fnt--700 clr--wht bckgrnd--blue'>you</p>`)
+        nodeTemplate.querySelector('figcaption h2').insertAdjacentHTML('afterend', `<p class ='user__me fnt--700 clr--wht bckgrnd--blue'>you</p>`)
         nodeTemplate.querySelector('.user__plus + figure').innerHTML = templateUser()
     }
     nodeTemplate.querySelector('img.user__img').src = json.user.images
