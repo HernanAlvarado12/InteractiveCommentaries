@@ -1,0 +1,24 @@
+@media (min-width: 800px) {
+    .artcl__user {
+        padding-left: 7rem;
+    }
+
+    .user__plus {
+        row-gap: 1.5rem;
+        flex-direction: column;
+        position: absolute;
+        top: 2.4rem;
+        left: 2rem;
+    }
+
+    .user__plus + figure {
+        margin-top: 0.6rem;
+        position: absolute;
+        top: 2.4rem;
+        right: 2rem;
+    }
+
+    .footer__cntnr {
+        left: calc(50% - 35rem);
+    }
+}

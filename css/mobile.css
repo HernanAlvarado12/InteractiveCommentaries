@@ -1,0 +1,156 @@
+:root {
+    --blue: hsl(238, 40%, 52%);
+    --red:  hsl(358, 79%, 66%);
+    --gray: hsl(223, 19%, 93%);
+    --red-pale: hsl(357, 100%, 86%);
+    --blue-dark: hsl(212, 24%, 26%);
+    --blue-gray: hsl(211, 10%, 45%);
+    --blue-light: hsl(239, 57%, 85%);
+    --gray-light: hsl(228, 33%, 97%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    line-height: 1.4;
+    font-size: 62.5%;
+    font-family: sans-serif;
+    background-color: cadetblue;
+}
+
+main.main__cntnr {
+    margin: 2rem auto 22rem auto;
+}
+
+.elmnt--flx, .cntnr--flx {
+    display: flex;
+    align-items: center;
+}
+
+.flx--clmn {
+    flex-direction: column;
+}
+
+.flx--clmn-gp-1 {
+    column-gap: 1.5rem;
+}
+
+.flx--jstf-btwn {
+    justify-content: space-between;
+}
+
+.flx--rw-gp-2 {
+    row-gap: 2rem;
+}
+
+.elmnt--wdth, .cntnr--wdth {
+    width: min(90%, 70rem);
+    margin: 0 auto;
+}
+
+.elmnt--wdth-100, .cntnr--wdth-100 {
+    width: 100%;
+}
+
+.artcl__user, .footer__cntnr {
+    padding: 2.4rem 2rem;   
+    font-weight: 500;
+    position: relative;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.sctn__replies {
+    padding-left: 2rem;
+    border-left: 1px solid var(--blue-light);
+}
+
+.elmnt--inline {
+    display: inline-block;
+}
+
+.fnt--mdm {
+    font-size: 1.6rem;
+}
+
+.user__img {
+    width: 3.2rem;
+}
+
+.clr--gry {
+    color: var(--blue-gray);
+}
+
+.clr--prpl {
+    color: var(--blue);
+}
+
+.clr--dark {
+    color: var(--blue-dark);
+}
+
+.fnt--400 {
+    font-weight: 400;
+}
+
+.fnt--700 {
+    font-weight: 700;
+}
+
+.user__plus {
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.4rem;
+    background-color: var(--gray-light);
+}
+
+.user__plus + figure figcaption {
+    margin-left: 1rem;
+}
+
+.clr--red {
+    color: var(--red);
+}
+
+.footer__cntnr {
+    position: fixed;
+    bottom: 2rem;
+    left: 5%;
+}
+
+.footer__send {
+    margin-top: 1rem;
+}
+
+.footer__text {
+    height: 8rem;
+    resize: none;
+    outline: 0;
+    color: var(--blue-gray);
+    padding: 1rem 1.4rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--gray);
+}
+
+.footer__text:focus {
+    border: 1px solid var(--blue-dark);
+}
+
+.footer__bttn {
+    width: 8rem;
+    height: 3.6rem;
+    color: white;
+    border: transparent;
+    border-radius: 0.4rem;
+    background-color: var(--blue);
+}
+
+@media (any-hover : hover) {
+    .elmnt--opacity:hover, .delete:hover, .edit:hover, .footer__bttn:hover {
+        opacity: 0.6;
+        cursor: pointer;
+    }
+}
