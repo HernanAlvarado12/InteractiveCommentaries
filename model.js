@@ -16,12 +16,23 @@ document.addEventListener('click', event => {
         const delet = document.querySelector('.sctn__delete')
         delet.classList.add('elmnt--blck')
         delet.style = `top: calc(50% - ${(delet.getBoundingClientRect().height / 2)}px)`
-        console.log(parentNode)
     }else if(event.target.matches('.cancel__bttn')) {
         document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
     }else if(event.target.matches('.delete__bttn')) {
         parentElement(parentNode, 'artcl__user').remove()
         document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
+    }else if(event.target.matches('.plus')) {
+        const parent = parentElement(event.target, 'artcl__user')
+        if(parent.querySelector('h2').textContent != 'juliusomo') {
+            const score = event.target.nextElementSibling
+            score.textContent = Number(score.textContent) +1
+        }
+    }else if(event.target.matches('.minus')) {
+        const parent = parentElement(event.target, 'artcl__user')
+        if(parent.querySelector('h2').textContent != 'juliusomo') {
+            const score = event.target.previousElementSibling
+            score.textContent = Number(score.textContent) -1
+        }
     }
 })
 
