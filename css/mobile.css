@@ -69,10 +69,6 @@ main.main__cntnr {
     border-left: 1px solid var(--blue-light);
 }
 
-.elmnt--inline {
-    display: inline-block;
-}
-
 .fnt--mdm {
     font-size: 1.6rem;
 }
@@ -103,9 +99,9 @@ main.main__cntnr {
 
 .user__plus {
     padding: 0.8rem 1.4rem;
-    border-radius: 0.4rem;
     background-color: var(--gray-light);
 }
+
 
 .user__plus + figure figcaption {
     margin-left: 1rem;
@@ -115,9 +111,55 @@ main.main__cntnr {
     color: var(--red);
 }
 
+.user__me {
+    padding: 0.1rem 0.8rem;
+    border-radius: 0.2rem;
+}
+
+.clr--wht {
+    color: white;
+}
+
+.sctn__delete {
+    width: min(90%, 35rem);
+    padding: 2.4rem 2.8rem;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    box-shadow: 0 0 3rem 0.1rem rgb(42, 41, 41);
+    background-color: white;
+}
+
+.elmnt--blck, .cntnr--blck {
+    display: block;
+}
+
+.elmnt--rds, .cntnr--rds {
+    border-radius: 0.6rem;
+}
+
+.bttn {
+    flex: 1;
+    height: 3.6rem;
+    text-transform: uppercase;
+    border: transparent;
+}
+
+.delete__prgrph {
+    margin: 1.4rem 0;
+}
+
+.cancel__bttn {
+    background-color: var(--blue-gray);
+}
+
+.delete__bttn {
+    background-color: var(--red);
+}
+
 .footer__cntnr {
     position: fixed;
-    bottom: 2rem;
+    bottom: 1rem;
     left: 5%;
 }
 
@@ -131,7 +173,6 @@ main.main__cntnr {
     outline: 0;
     color: var(--blue-gray);
     padding: 1rem 1.4rem;
-    border-radius: 0.4rem;
     border: 1px solid var(--gray);
 }
 
@@ -142,14 +183,17 @@ main.main__cntnr {
 .footer__bttn {
     width: 8rem;
     height: 3.6rem;
-    color: white;
     border: transparent;
     border-radius: 0.4rem;
     background-color: var(--blue);
 }
 
+.bckgrnd--blue {
+    background-color: var(--blue);
+}
+
 @media (any-hover : hover) {
-    .elmnt--opacity:hover, .delete:hover, .edit:hover, .footer__bttn:hover {
+    .elmnt--opacity:hover, .delete:hover, .edit:hover, .footer__bttn:hover, .bttn:hover {
         opacity: 0.6;
         cursor: pointer;
     }

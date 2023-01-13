@@ -6,8 +6,24 @@ import { json, templateUser } from "./json.js"
  * @typedef {Element}
  */
 const template = document.getElementById('templateUser').content
+let parentNode
 const fragment = document.createDocumentFragment()
 const mainContainer = document.querySelector('main.main__cntnr')
+
+document.addEventListener('click', event => {
+    if (event.target.matches('.delete')) {
+        parentNode = event.target 
+        const delet = document.querySelector('.sctn__delete')
+        delet.classList.add('elmnt--blck')
+        delet.style = `top: calc(50% - ${(delet.getBoundingClientRect().height / 2)}px)`
+        console.log(parentNode)
+    }else if(event.target.matches('.cancel__bttn')) {
+        document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
+    }else if(event.target.matches('.delete__bttn')) {
+        parentElement(parentNode, 'artcl__user').remove()
+        document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
+    }
+})
 
 
 json.comments.forEach(json => {
@@ -16,14 +32,12 @@ json.comments.forEach(json => {
 
     const section = document.createElement('section')
     section.classList.add('sctn__replies','cntnr--flx', 'flx--clmn','flx--rw-gp-2')
-
     json.replies.map(sub => {
         const subClone = document.importNode(template, true)
         section.append(importTemplate(subClone, sub))
     })
     if(section.childElementCount !== 0) 
-        fragment.append(section)
-    
+        fragment.append(section) 
 })
 mainContainer.append(fragment)
 
@@ -36,11 +50,12 @@ mainContainer.append(fragment)
  */
 function importTemplate(nodeTemplate, json) {
     if(json.user.username == 'juliusomo') {
+        //nodeTemplate.querySelector('figcaption h2').insertAdjacentHTML('afterend', `<p class ='user__me fnt--700 clr--wht bckgrnd--blue'>you</p>`)
         nodeTemplate.querySelector('.user__plus + figure').innerHTML = templateUser()
     }
     nodeTemplate.querySelector('img.user__img').src = json.user.images
     nodeTemplate.querySelector('figcaption h2').textContent = json.user.username
-    nodeTemplate.querySelector('figcaption p').textContent = json.createdAt  
+    nodeTemplate.querySelector('figcaption p.fnt--400').textContent = json.createdAt  
     nodeTemplate.querySelector('.artcl__user > p').innerHTML = `${innerReplyingTo(json.replyingTo)} ${json.content}`
     nodeTemplate.querySelector('.user__plus p').textContent = json.score
     return nodeTemplate;
@@ -52,6 +67,23 @@ function importTemplate(nodeTemplate, json) {
  * @returns {String} template string that have the structure of a paragraph
  */
 function innerReplyingTo(content) {
-    return content? `<p class = 'elmnt--inline fnt--700 clr--prpl'>@${content}</p>` : ``
+    return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
 }
 
+/**
+ * 
+ * @param {Element} currentNode node of the event
+ * @param {String} classList class that must have the node
+ * @returns {Element} parent node with class
+ */
+function parentElement(currentNode, classList) {
+    if(currentNode == document.body) {
+        return null;
+    }else {
+        if(currentNode.classList.contains(classList)) {
+            return currentNode;
+        }else {
+            return parentElement(currentNode.parentElement, classList);
+        }
+    }
+}

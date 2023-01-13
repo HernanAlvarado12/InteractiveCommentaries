@@ -55,11 +55,11 @@ const json = {
 
 function templateUser() {
     return `<figure class = 'cntnr--flx'>
-                <img src ='./assets/delete.svg'>
+                <img class ='delete' src ='./assets/delete.svg'>
                 <figcaption class ='delete clr--red'>Delete</figcaption>
             </figure>
             <figure class ='cntnr--flx'>
-                <img src ='./assets/edit.svg'>
+                <img class ='edit' src ='./assets/edit.svg'>
                 <figcaption class ='edit clr--prpl'>Edit</figcaption>
             </figure>`
 }
