@@ -26,6 +26,7 @@ html {
 
 main.main__cntnr {
     margin: 2rem auto 22rem auto;
+    filter: blur(0px);
 }
 
 .elmnt--flx, .cntnr--flx {
@@ -84,6 +85,9 @@ main.main__cntnr {
     white-space: nowrap;
 }
 
+main.main--filter-1 {
+    filter: blur(1px);
+}
 .fnt--mdm {
     font-size: 1.6rem;
 }

@@ -12,18 +12,12 @@ const mainContainer = document.querySelector('main.main__cntnr')
 
 document.addEventListener('click', event => {
     if (event.target.matches('.delete')) {
-        parentNode = event.target 
-        mainContainer.style = 'filter: blur(1px)'
-        const delet = document.querySelector('.sctn__delete')
-        delet.classList.add('elmnt--blck')
-        delet.style = `top: calc(50% - ${(delet.getBoundingClientRect().height / 2)}px)`
+        modalMain(event)
     }else if(event.target.matches('.cancel__bttn')) {
-        mainContainer.style = 'filter: blur(0px)'
-        document.querySelector('.sctn__delete').classList.remove('elmnt--blck')   
+        mainFilter()
     }else if(event.target.matches('.delete__bttn')) {
         parentElement(parentNode, 'artcl__user').remove()
-        mainContainer.style = 'filter: blur(0px)'
-        document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
+        mainFilter()
     }else if(event.target.matches('.plus')) {
         plusCount(event, +1)
     }else if(event.target.matches('.minus')) {
@@ -59,7 +53,7 @@ function importTemplate(nodeTemplate, json) {
     if(json.user.username == 'juliusomo') {
         nodeTemplate.querySelector('figcaption h2').insertAdjacentHTML('afterend', `<p class ='user__me fnt--700 clr--wht bckgrnd--blue'>you</p>`)
         nodeTemplate.querySelector('.user__plus + figure').innerHTML = templateUser()
-        nodeTemplate.querySelector('.user__plus + figure').classList.add('flx--wrap', 'flx-1')
+        nodeTemplate.querySelector('.user__plus + figure').classList.add('flx--wrap')
     }
     nodeTemplate.querySelector('img.user__img').src = json.user.images
     nodeTemplate.querySelector('figcaption h2').textContent = json.user.username
@@ -79,6 +73,25 @@ function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
 }
 
+/**
+ * 
+ * @param {Event} event 
+ */
+function modalMain(event) {
+    parentNode = event.target
+    mainContainer.classList.add('main--filter-1')
+    const delet = document.querySelector('.sctn__delete')
+    delet.classList.add('elmnt--blck')
+    delet.style = `top: calc(50% - ${(delet.getBoundingClientRect().height / 2)}px)`
+}
+
+/**
+ * 
+ */
+function mainFilter() {
+    mainContainer.classList.remove('main--filter-1')
+    document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
+}
 
 
 /**
