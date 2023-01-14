@@ -226,4 +226,9 @@ main.main--filter-1 {
     .plus:hover, .minus:hover {
         cursor: pointer;
     }
+
+    .test:hover {
+        opacity: 1;
+        cursor: unset;
+    }
 }

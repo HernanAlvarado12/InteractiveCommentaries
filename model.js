@@ -23,10 +23,19 @@ document.addEventListener('click', event => {
     }else if(event.target.matches('.minus')) {
         plusCount(event, -1)
     }else if(event.target.matches('.user__plus + figure > :is(figcaption, img)')) {
-        console.log(event.target)
+        replyMessage(event.target)
     }
 })
 
+document.addEventListener('mouseover', event => {
+    if(event.target.matches('.elmnt--opacity, .edit, .delete, .footer__bttn')) {
+        if(mainContainer.classList.contains('main--filter-1')) {
+            event.target.classList.add('test')
+        }else{
+            event.target.classList.remove('test')
+        }
+    }
+})
 
 json.comments.forEach(json => {
     const cloneNode = importTemplate(document.importNode(template, true), json)
@@ -71,6 +80,24 @@ function importTemplate(nodeTemplate, json) {
  */
 function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
+}
+
+/**
+ * 
+ * @param {Element} currentNode 
+ */
+function replyMessage(currentNode){
+    const parent = parentElement(currentNode, 'artcl__user')
+    console.log(parent)
+    let template = `<article class ="artcl__user cntnr--wdth">
+                        <textarea class ="footer__text cntnr--wdth-100 fnt--mdm fnt--700 elmnt--rds" id ="" placeholder ="Add a comment..."></textarea>
+                        <div class ="footer__send cntnr--flx flx--jstf-btwn">
+                            <img class ="user__img elmnt--abslt" src ="./assets/juliusomo.png" alt ="" loading ="lazy" draggable ="false">
+                            <button class ="footer__bttn clr--wht elmnt--abslt">Send</button>
+                        </div>
+                    </article>`
+    const test = `<p>Entro a esta seccion</p>`
+    parent.insertAdjacentHTML('afterend', template)
 }
 
 /**
