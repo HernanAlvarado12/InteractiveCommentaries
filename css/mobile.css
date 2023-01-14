@@ -20,8 +20,8 @@ html {
     font-size: 62.5%;
     font-family: sans-serif;
     user-select: none;
-    background-color: var(--gray-light);
-    /*background-color: cyan;*/
+    /*background-color: var(--gray-light);*/
+    background-color: cyan;
 }
 
 main.main__cntnr {
@@ -194,7 +194,8 @@ main.main__cntnr {
     outline: 0;
     color: var(--blue-gray);
     padding: 1rem 1.4rem;
-    border: 1px solid var(--gray);
+    /*border: 1px solid var(--gray);*/
+    border: 1px solid;
 }
 
 .footer__text:focus {

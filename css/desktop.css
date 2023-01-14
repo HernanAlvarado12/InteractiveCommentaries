@@ -1,4 +1,8 @@
 @media (min-width: 800px) {
+    main.main__cntnr {
+        margin-bottom: 17rem;
+    }
+
     .artcl__user {
         padding-left: 8rem;
     }
@@ -6,19 +10,36 @@
     .user__plus {
         row-gap: 1.5rem;
         flex-direction: column;
-        position: absolute;
         top: 2.4rem;
         left: 2rem;
     }
 
+    .elmnt--abslt, .cntnr--abslt {
+        position: absolute;
+    }
+
     .user__plus + figure {
         margin-top: 0.6rem;
-        position: absolute;
         top: 2.4rem;
         right: 2rem;
     }
 
     .footer__cntnr {
         left: calc(50% - 35rem);
+    }
+
+    .footer__text {
+        width: 75%;
+        margin-left: 6rem;
+    }
+
+    .footer__cntnr img {
+        top: 2rem;
+        left: 2rem;
+    }
+
+    .footer__bttn {
+        top: 2rem;
+        right: 2rem;
     }
 }

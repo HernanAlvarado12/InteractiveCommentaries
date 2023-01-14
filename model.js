@@ -13,21 +13,25 @@ const mainContainer = document.querySelector('main.main__cntnr')
 document.addEventListener('click', event => {
     if (event.target.matches('.delete')) {
         parentNode = event.target 
+        mainContainer.style = 'filter: blur(1px)'
         const delet = document.querySelector('.sctn__delete')
         delet.classList.add('elmnt--blck')
         delet.style = `top: calc(50% - ${(delet.getBoundingClientRect().height / 2)}px)`
     }else if(event.target.matches('.cancel__bttn')) {
-        document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
+        mainContainer.style = 'filter: blur(0px)'
+        document.querySelector('.sctn__delete').classList.remove('elmnt--blck')   
     }else if(event.target.matches('.delete__bttn')) {
         parentElement(parentNode, 'artcl__user').remove()
+        mainContainer.style = 'filter: blur(0px)'
         document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
     }else if(event.target.matches('.plus')) {
         plusCount(event, +1)
     }else if(event.target.matches('.minus')) {
         plusCount(event, -1)
+    }else if(event.target.matches('.user__plus + figure > :is(figcaption, img)')) {
+        console.log(event.target)
     }
 })
-
 
 
 json.comments.forEach(json => {
@@ -44,7 +48,6 @@ json.comments.forEach(json => {
         fragment.append(section) 
 })
 mainContainer.append(fragment)
-
 
 
 /**
@@ -66,6 +69,7 @@ function importTemplate(nodeTemplate, json) {
     return nodeTemplate;
 }
 
+
 /**
  * 
  * @param {String} content value of json
@@ -74,6 +78,7 @@ function importTemplate(nodeTemplate, json) {
 function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
 }
+
 
 
 /**
@@ -99,6 +104,7 @@ function numberRound(count) {
     return count < 0? 0 : count
 }
 
+
 /**
  * 
  * @param {Element} currentNode node of the event
@@ -116,3 +122,6 @@ function parentElement(currentNode, classList) {
         }
     }
 }
+
+
+//https://frontendmentor-w5qu.vercel.app/
