@@ -80,6 +80,10 @@ main.main__cntnr {
     border-left: 1px solid var(--blue-light);
 }
 
+.reply--not {
+    
+}
+
 .reply--okay {
     margin-left: auto;
 }

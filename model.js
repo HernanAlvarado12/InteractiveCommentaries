@@ -24,12 +24,14 @@ document.addEventListener('click', event => {
         plusCount(event, +1)
     }else if(event.target.matches('.minus:not(.test)')) {
         plusCount(event, -1)
-    }else if(event.target.matches('.user__plus + figure > :is(figcaption, img):not(.test)')) { // crea un seccion para escribir la respuesta
+    }else if(event.target.matches('.user__plus + figure > :is(figcaption, img):not(.test)')) {
         replyMessage(event.target)
     }else if(event.target.matches('.artcl__reply .reply--cancel')) {
         parentElement(event.target, 'artcl__reply').remove()
     }else if(event.target.matches('.artcl__reply .reply--okay')) {
         addReply(event)
+    }else if(event.target.matches('.footer__bttn')) {
+        addComment(event)
     }
 })
 
@@ -65,6 +67,7 @@ mainContainer.append(fragment)
  * 
  * @param {Element} nodeTemplate 
  * @param {JSON} json 
+ * @returns {Element}
  */
 function importTemplate(nodeTemplate, json) {
     if(json.user.username == 'juliusomo') {
@@ -90,6 +93,31 @@ function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
 }
 
+/**
+ * 
+ * @param {Event} event 
+ */
+function addComment(event) {
+    const cloneTemplate = document.importNode(template, true)
+    const parent = parentElement(event.target, 'footer__cntnr')
+    const value = parent.querySelector('.footer__text')
+    if(value.length != 0) {
+        const json = {
+            content: value.value,
+            createdAt: '1 minute ago',
+            score: 0,
+            replyingTo: '',
+            user: {
+                username: 'juliusomo',
+                images: './assets/juliusomo.png'
+            }
+        }
+        const commentary = importTemplate(cloneTemplate, json)
+        mainContainer.append(commentary)
+        value.value = ''
+    }
+
+}
 
 /**
  * Es muy parecido al anterior metodo, por lo tanto lo debemos refactorizar para
@@ -103,7 +131,7 @@ function addReply(event) {
     if(value.length != 0) {
         const json = {
             content: value,
-            createAt: '1 minute ago',
+            createdAt: '1 minute ago',
             score: 0,
             replyingTo: replying.querySelector('h2').textContent,
             user: {
@@ -111,9 +139,25 @@ function addReply(event) {
                 images: './assets/juliusomo.png'
             }
         }
-        const test = importTemplate(cloneTemplate, json)
-        parent.insertAdjacentElement('beforebegin', test.firstElementChild)
+        const commentary = importTemplate(cloneTemplate, json)
+        parent.insertAdjacentElement('afterend', commentary.firstElementChild)
         parent.remove()
+    }
+}
+
+/**
+ * 
+ * @param {Element} currentNode 
+ */
+function replyMessage(currentNode){
+    const parent = parentElement(currentNode, 'artcl__user')
+    const findReply = document.querySelector('.artcl__reply')
+    if(findReply)
+        findReply.remove()
+    if(parent.nextElementSibling && !parent.nextElementSibling.classList.contains('artcl__reply')) {
+        insertReply(parent)
+    }else {
+        insertReply(parent)
     }
 }
 
@@ -122,11 +166,9 @@ function addReply(event) {
  * 
  * @param {Element} currentNode 
  */
-function replyMessage(currentNode){
-    const parent = parentElement(currentNode, 'artcl__user')
-    replying = parent
-    let template = replyTemplate()
-    parent.insertAdjacentHTML('afterend', template)
+function insertReply(currentNode) {
+    replying = currentNode
+    currentNode.insertAdjacentHTML('afterend', replyTemplate())
 }
 
 
