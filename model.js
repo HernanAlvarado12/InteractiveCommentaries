@@ -93,57 +93,49 @@ function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
 }
 
+
 /**
  * 
  * @param {Event} event 
  */
 function addComment(event) {
-    const cloneTemplate = document.importNode(template, true)
-    const parent = parentElement(event.target, 'footer__cntnr')
-    const value = parent.querySelector('.footer__text')
-    if(value.length != 0) {
-        const json = {
-            content: value.value,
-            createdAt: '1 minute ago',
-            score: 0,
-            replyingTo: '',
-            user: {
-                username: 'juliusomo',
-                images: './assets/juliusomo.png'
-            }
-        }
-        const commentary = importTemplate(cloneTemplate, json)
-        mainContainer.append(commentary)
-        value.value = ''
-    }
-
+    const commentary = valueCommentary(event, 'footer__cntnr', '.footer__text', '')
+    commentary != undefined? mainContainer.append(commentary.firstElementChild) : ''
 }
 
+
 /**
- * Es muy parecido al anterior metodo, por lo tanto lo debemos refactorizar para
- * que sea solo un metodo
+ * 
  * @param {Event} event 
  */
 function addReply(event) {
+    const parentNode = parentElement(event.target, 'artcl__reply')
+    const commentary = valueCommentary(event, 'artcl__reply', '.reply__text', replying.querySelector('h2').textContent)
+    commentary != undefined? parentNode.replaceWith(commentary.firstElementChild) : '';
+}
+
+
+/**
+ * 
+ * @param {Event} event 
+ */
+function valueCommentary(event, classParent, textClass, origin) {
     const cloneTemplate = document.importNode(template, true)
-    const parent = parentElement(event.target, 'artcl__reply')
-    const value = parent.querySelector('.reply__text').value
-    if(value.length != 0) {
-        const json = {
-            content: value,
+    const parentNode = parentElement(event.target, classParent)
+    const textValue = parentNode.querySelector(textClass)
+    const textCommentary = textValue.value
+    textValue.value = ''
+    if(textCommentary.length !== 0) {
+        return importTemplate(cloneTemplate, {
+            content: textCommentary,
             createdAt: '1 minute ago',
             score: 0,
-            replyingTo: replying.querySelector('h2').textContent,
-            user: {
-                username: 'juliusomo',
-                images: './assets/juliusomo.png'
-            }
-        }
-        const commentary = importTemplate(cloneTemplate, json)
-        parent.insertAdjacentElement('afterend', commentary.firstElementChild)
-        parent.remove()
+            replyingTo: origin,
+            user: { username: 'juliusomo', images: './assets/juliusomo.png'}
+        })
     }
 }
+
 
 /**
  * 
