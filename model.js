@@ -63,6 +63,51 @@ json.comments.forEach(json => {
 mainContainer.append(fragment)
 
 
+
+
+
+/**
+ * 
+ * @param {Event} event 
+ */
+function addComment(event) {
+    const commentary = valueCommentary({target: event, classParent: 'footer__cntnr', textClass: '.footer__text', origin: ''})
+    commentary != undefined? mainContainer.append(commentary.firstElementChild) : ''
+}
+
+
+/**
+ * 
+ * @param {Event} event 
+ */
+function addReply(event) {
+    const parentNode = parentElement(event.target, 'artcl__reply')
+    const commentary = valueCommentary({target: event, classParent: 'artcl__reply', textClass: '.reply__text', origin: replying.querySelector('h2').textContent})
+    commentary != undefined? parentNode.replaceWith(commentary.firstElementChild) : '';
+}
+
+/**
+ * 
+ * @param {Event} target
+ */
+function valueCommentary({target, classParent, textClass, origin}) {
+    const cloneTemplate = document.importNode(template, true)
+    const parentNode = parentElement(target.target, classParent)
+    const textValue = parentNode.querySelector(textClass)
+    const textCommentary = textValue.value
+    textValue.value = ''
+    if(textCommentary.length !== 0) {
+        return importTemplate(cloneTemplate, {
+            content: textCommentary,
+            createdAt: '1 minute ago',
+            score: 0,
+            replyingTo: origin,
+            user: { username: 'juliusomo', images: './assets/juliusomo.png'}
+        })
+    }
+}
+
+
 /**
  * 
  * @param {Element} nodeTemplate 
@@ -91,49 +136,6 @@ function importTemplate(nodeTemplate, json) {
  */
 function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
-}
-
-
-/**
- * 
- * @param {Event} event 
- */
-function addComment(event) {
-    const commentary = valueCommentary(event, 'footer__cntnr', '.footer__text', '')
-    commentary != undefined? mainContainer.append(commentary.firstElementChild) : ''
-}
-
-
-/**
- * 
- * @param {Event} event 
- */
-function addReply(event) {
-    const parentNode = parentElement(event.target, 'artcl__reply')
-    const commentary = valueCommentary(event, 'artcl__reply', '.reply__text', replying.querySelector('h2').textContent)
-    commentary != undefined? parentNode.replaceWith(commentary.firstElementChild) : '';
-}
-
-
-/**
- * 
- * @param {Event} event 
- */
-function valueCommentary(event, classParent, textClass, origin) {
-    const cloneTemplate = document.importNode(template, true)
-    const parentNode = parentElement(event.target, classParent)
-    const textValue = parentNode.querySelector(textClass)
-    const textCommentary = textValue.value
-    textValue.value = ''
-    if(textCommentary.length !== 0) {
-        return importTemplate(cloneTemplate, {
-            content: textCommentary,
-            createdAt: '1 minute ago',
-            score: 0,
-            replyingTo: origin,
-            user: { username: 'juliusomo', images: './assets/juliusomo.png'}
-        })
-    }
 }
 
 
