@@ -22,19 +22,12 @@ document.addEventListener('click', event => {
         parentElement(parentNode, 'artcl__user').remove()
         document.querySelector('.sctn__delete').classList.remove('elmnt--blck')
     }else if(event.target.matches('.plus')) {
-        const parent = parentElement(event.target, 'artcl__user')
-        if(parent.querySelector('h2').textContent != 'juliusomo') {
-            const score = event.target.nextElementSibling
-            score.textContent = Number(score.textContent) +1
-        }
+        plusCount(event, +1)
     }else if(event.target.matches('.minus')) {
-        const parent = parentElement(event.target, 'artcl__user')
-        if(parent.querySelector('h2').textContent != 'juliusomo') {
-            const score = event.target.previousElementSibling
-            score.textContent = Number(score.textContent) -1
-        }
+        plusCount(event, -1)
     }
 })
+
 
 
 json.comments.forEach(json => {
@@ -42,7 +35,7 @@ json.comments.forEach(json => {
     fragment.append(cloneNode)
 
     const section = document.createElement('section')
-    section.classList.add('sctn__replies','cntnr--flx', 'flx--clmn','flx--rw-gp-2')
+    section.classList.add('sctn__replies','cntnr--wdth-100','cntnr--flx', 'flx--clmn','flx--rw-gp-2')
     json.replies.map(sub => {
         const subClone = document.importNode(template, true)
         section.append(importTemplate(subClone, sub))
@@ -63,6 +56,7 @@ function importTemplate(nodeTemplate, json) {
     if(json.user.username == 'juliusomo') {
         nodeTemplate.querySelector('figcaption h2').insertAdjacentHTML('afterend', `<p class ='user__me fnt--700 clr--wht bckgrnd--blue'>you</p>`)
         nodeTemplate.querySelector('.user__plus + figure').innerHTML = templateUser()
+        nodeTemplate.querySelector('.user__plus + figure').classList.add('flx--wrap', 'flx-1')
     }
     nodeTemplate.querySelector('img.user__img').src = json.user.images
     nodeTemplate.querySelector('figcaption h2').textContent = json.user.username
@@ -79,6 +73,30 @@ function importTemplate(nodeTemplate, json) {
  */
 function innerReplyingTo(content) {
     return content? `<p class = 'fnt--700 clr--prpl' style ='display:inline-block'>@${content}</p>` : ``
+}
+
+
+/**
+ * 
+ * @param {Event} event that origin the event
+ * @param {Number} expresion number to plus the counter
+ */
+function plusCount(event, expresion) {
+    const parent = parentElement(event.target, 'artcl__user')
+    if (parent.querySelector('h2').textContent != 'juliusomo') {
+        const score = parent.querySelector('.count')
+        score.textContent = numberRound(Number(score.textContent) + expresion)
+    }
+}
+
+
+/**
+ * 
+ * @param {Number} count current that have a commentary 
+ * @returns {Number} counter 
+ */
+function numberRound(count) {
+    return count < 0? 0 : count
 }
 
 /**

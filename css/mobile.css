@@ -21,6 +21,7 @@ html {
     font-family: sans-serif;
     user-select: none;
     background-color: var(--gray-light);
+    /*background-color: cyan;*/
 }
 
 main.main__cntnr {
@@ -48,6 +49,14 @@ main.main__cntnr {
     row-gap: 2rem;
 }
 
+.flx--wrap {
+    flex-wrap: wrap;
+}
+
+.flx-1 {
+    flex: 1;
+}
+
 .elmnt--wdth, .cntnr--wdth {
     width: min(90%, 70rem);
     margin: 0 auto;
@@ -68,6 +77,11 @@ main.main__cntnr {
 .sctn__replies {
     padding-left: 5%;
     border-left: 1px solid var(--blue-light);
+}
+
+.artcl__user > figure {
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .fnt--mdm {
@@ -202,6 +216,9 @@ main.main__cntnr {
 @media (any-hover : hover) {
     .elmnt--opacity:hover, .delete:hover, .edit:hover, .footer__bttn:hover, .bttn:hover {
         opacity: 0.6;
+        cursor: pointer;
+    }
+    .plus:hover, .minus:hover {
         cursor: pointer;
     }
 }
