@@ -67,7 +67,7 @@ main.main__cntnr {
     width: 100%;
 }
 
-.artcl__user, .footer__cntnr {
+.artcl__user, .footer__cntnr, .artcl__reply {
     padding: 2.4rem 2rem;   
     font-weight: 500;
     position: relative;
@@ -78,6 +78,10 @@ main.main__cntnr {
 .sctn__replies {
     padding-left: 5%;
     border-left: 1px solid var(--blue-light);
+}
+
+.reply--okay {
+    margin-left: auto;
 }
 
 .artcl__user > figure {
@@ -178,21 +182,17 @@ main.main--filter-1 {
     background-color: var(--blue-gray);
 }
 
-.delete__bttn {
-    background-color: var(--red);
-}
-
 .footer__cntnr {
     position: fixed;
     bottom: 1rem;
     left: 5%;
 }
 
-.footer__send {
+.footer__send, .reply__send {
     margin-top: 1rem;
 }
 
-.footer__text {
+.footer__text, .reply__text {
     height: 8rem;
     resize: none;
     outline: 0;
@@ -206,12 +206,16 @@ main.main--filter-1 {
     border: 1px solid var(--blue-dark);
 }
 
-.footer__bttn {
+.footer__bttn, .reply__bttn {
     width: 8rem;
     height: 3.6rem;
     border: transparent;
     border-radius: 0.4rem;
     background-color: var(--blue);
+}
+
+.delete__bttn, .bckgrnd--red {
+    background-color: var(--red);
 }
 
 .bckgrnd--blue {

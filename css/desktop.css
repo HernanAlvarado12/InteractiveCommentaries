@@ -28,18 +28,22 @@
         left: calc(50% - 35rem);
     }
 
-    .footer__text {
+    .footer__text, .reply__text {
         width: 75%;
         margin-left: 6rem;
     }
 
-    .footer__cntnr img {
+    .footer__cntnr img, .artcl__reply .user__img {
         top: 2rem;
         left: 2rem;
     }
 
-    .footer__bttn {
-        top: 2rem;
+    .footer__bttn, .reply__bttn {
+        top: 2.5rem;
         right: 2rem;
+    }
+
+    .reply--cancel {
+        top: 7rem;
     }
 }
