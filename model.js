@@ -15,7 +15,7 @@ const mainContainer = document.querySelector('main.main__cntnr')
 
 
 document.addEventListener('click', event => {
-    if (event.target.matches('.delete:not(.pointer:hover)')) {
+    if (event.target.matches('.delete:not(.pointer:hover)') && !existContentEditable()) {
         modalMain(event)
     }else if(event.target.matches('.cancel__bttn:not(.edit--cancel)')) {
         mainFilter()
@@ -35,7 +35,7 @@ document.addEventListener('click', event => {
     }else if(event.target.matches('.footer__bttn')) {
         addComment(event)
     }else if(event.target.matches('.edit:not(.pointer)')) {
-        const paragraph = document.querySelector(`.artcl__user figure + p[contenteditable='true'`)
+        const paragraph = existContentEditable()
         paragraph != null? textEditable({parent: parentElement(paragraph, 'artcl__user'), button: false, change: false}) : ''
         lastMessage = textEditable({parent: parentElement(event.target, 'artcl__user'), button: true, change: true})
     }else if(event.target.matches('.edit__bttn')) {
@@ -73,7 +73,7 @@ mainContainer.append(fragment)
 
 /**
  * 
- * @param {{parent: Element, button: Boolean, change: Boolean}} parentNode
+ * @param {{parent: Element, button: Boolean, change: Boolean}} jsonData
  * @returns {String}
  */
 function textEditable({parent: parentNode, button: close, change: cancel}) {
@@ -85,6 +85,15 @@ function textEditable({parent: parentNode, button: close, change: cancel}) {
     parentNode.querySelector('.edit__bttn').classList.toggle('elmnt--blck')
     parentNode.querySelector('.cancel__bttn').classList.toggle('elmnt--blck')
     return textContent.textContent
+}
+
+
+/**
+ * 
+ * @returns {Element}
+ */
+function existContentEditable() {
+    return document.querySelector(`.artcl__user figure + p[contenteditable='true']`)
 }
 
 
@@ -121,7 +130,8 @@ function addReply(event) {
 
 /**
  * 
- * @param {Event} target
+ * @param {{target: Event, classParent: string, textClass: string, origin: string}}
+ * @returns {JSON} json
  */
 function valueCommentary({target, classParent, textClass, origin}) {
     const cloneTemplate = document.importNode(template, true)
