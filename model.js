@@ -6,25 +6,27 @@ import { json, replyTemplate, userTemplate } from "./json.js"
  * @typedef {Element}
  */
 const template = document.getElementById('templateUser').content
-let parentNode
 let replying
+let parentNode
+let lastMessage
+const comments = json.comments
 const fragment = document.createDocumentFragment()
 const mainContainer = document.querySelector('main.main__cntnr')
 
 
 document.addEventListener('click', event => {
-    if (event.target.matches('.delete')) {
+    if (event.target.matches('.delete:not(.pointer:hover)')) {
         modalMain(event)
-    }else if(event.target.matches('.cancel__bttn')) {
+    }else if(event.target.matches('.cancel__bttn:not(.edit--cancel)')) {
         mainFilter()
     }else if(event.target.matches('.delete__bttn')) {
         parentElement(parentNode, 'artcl__user').remove()
         mainFilter()
-    }else if(event.target.matches('.plus:not(.test)')) {
+    }else if(event.target.matches('.plus:not(.pointer)')) {
         plusCount(event, +1)
-    }else if(event.target.matches('.minus:not(.test)')) {
+    }else if(event.target.matches('.minus:not(.pointer)')) {
         plusCount(event, -1)
-    }else if(event.target.matches('.user__plus + figure > :is(figcaption, img):not(.test)')) {
+    }else if(event.target.matches('.user__plus + figure > :is(figcaption, img):not(.pointer)')) {
         replyMessage(event.target)
     }else if(event.target.matches('.artcl__reply .reply--cancel')) {
         parentElement(event.target, 'artcl__reply').remove()
@@ -32,24 +34,31 @@ document.addEventListener('click', event => {
         addReply(event)
     }else if(event.target.matches('.footer__bttn')) {
         addComment(event)
+    }else if(event.target.matches('.edit:not(.pointer)')) {
+        const paragraph = document.querySelector(`.artcl__user figure + p[contenteditable='true'`)
+        paragraph != null? textEditable({parent: parentElement(paragraph, 'artcl__user'), button: false, change: false}) : ''
+        lastMessage = textEditable({parent: parentElement(event.target, 'artcl__user'), button: true, change: true})
+    }else if(event.target.matches('.edit__bttn')) {
+        textEditable({parent: parentElement(event.target, 'artcl__user'), button: false, change: true})
+    }else if(event.target.matches('.edit--cancel')) {
+        textEditable({parent: parentElement(event.target, 'artcl__user'), button: false, change: false})
     }
 })
 
 
 document.addEventListener('mouseover', event => {
-    if(event.target.matches('.elmnt--opacity, .edit, .delete, .plus, .minus, .footer__bttn')) {
+    if(event.target.matches('.elmnt--opacity, .edit, .delete, .plus, .minus, .footer__bttn, .edit__bttn')) {
         if(mainContainer.classList.contains('main--filter-1')) {
-            event.target.classList.add('test')
+            event.target.classList.add('pointer')
         }else{
-            event.target.classList.remove('test')
+            event.target.classList.remove('pointer')
         }
     }
 })
 
 
-json.comments.forEach(json => {
-    const cloneNode = importTemplate(document.importNode(template, true), json)
-    fragment.append(cloneNode)
+comments.forEach(json => {
+    fragment.append(importTemplate(document.importNode(template, true), json))
 
     const section = document.createElement('section')
     section.classList.add('sctn__replies','cntnr--wdth-100','cntnr--flx', 'flx--clmn','flx--rw-gp-2')
@@ -57,13 +66,36 @@ json.comments.forEach(json => {
         const subClone = document.importNode(template, true)
         section.append(importTemplate(subClone, sub))
     })
-    if(section.childElementCount !== 0) 
-        fragment.append(section) 
+    section.childElementCount != 0? fragment.append(section) : '' 
 })
 mainContainer.append(fragment)
 
 
+/**
+ * 
+ * @param {{parent: Element, button: Boolean, change: Boolean}} parentNode
+ * @returns {String}
+ */
+function textEditable({parent: parentNode, button: close, change: cancel}) {
+    const textContent = parentNode.querySelector('figure + p.elmnt--wdth-100')
+    textContent.setAttribute('contenteditable', close)
+    !cancel? textContent.textContent = lastMessage : ''
+    classToggle(textContent, ['elmnt--brd', 'elmnt--rds', 'elmnt--pddng'])
+    parentNode.querySelectorAll('.user__plus + figure figure').forEach(element => element.classList.toggle('elmnt--none'))
+    parentNode.querySelector('.edit__bttn').classList.toggle('elmnt--blck')
+    parentNode.querySelector('.cancel__bttn').classList.toggle('elmnt--blck')
+    return textContent.textContent
+}
 
+
+/**
+ * 
+ * @param {Element} currentNode 
+ * @param {[String]} list 
+ */
+function classToggle(currentNode, list) {
+    list.forEach(classList => currentNode.classList.toggle(classList))
+}
 
 
 /**
@@ -85,6 +117,7 @@ function addReply(event) {
     const commentary = valueCommentary({target: event, classParent: 'artcl__reply', textClass: '.reply__text', origin: replying.querySelector('h2').textContent})
     commentary != undefined? parentNode.replaceWith(commentary.firstElementChild) : '';
 }
+
 
 /**
  * 
@@ -228,6 +261,5 @@ function parentElement(currentNode, classList) {
         }
     }
 }
-
 
 //https://frontendmentor-w5qu.vercel.app/

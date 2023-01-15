@@ -159,6 +159,10 @@ main.main--filter-1 {
     background-color: white;
 }
 
+.elmnt--none, .cntnr--none {
+    display: none;
+}
+
 .elmnt--blck, .cntnr--blck {
     display: block;
 }
@@ -176,10 +180,6 @@ main.main--filter-1 {
 
 .delete__prgrph {
     margin: 1.4rem 0;
-}
-
-.cancel__bttn {
-    background-color: var(--blue-gray);
 }
 
 .footer__cntnr {
@@ -202,11 +202,12 @@ main.main--filter-1 {
     border: 1px solid;
 }
 
-.footer__text:focus {
+.footer__text:focus, .elmnt--brd {
+    outline: 0;
     border: 1px solid var(--blue-dark);
 }
 
-.footer__bttn, .reply__bttn {
+.footer__bttn, .reply__bttn, .edit__bttn, .edit--cancel {
     width: 8rem;
     height: 3.6rem;
     border: transparent;
@@ -218,12 +219,20 @@ main.main--filter-1 {
     background-color: var(--red);
 }
 
+.cancel__bttn {
+    background-color: var(--blue-gray);
+}
+
+.elmnt--pddng {
+    padding: 0.6rem;
+}
+
 .bckgrnd--blue {
     background-color: var(--blue);
 }
 
 @media (any-hover : hover) {
-    .elmnt--opacity:hover, .delete:hover, .edit:hover, .footer__bttn:hover, .bttn:hover {
+    .elmnt--opacity:hover, .delete:hover, .edit:hover, .footer__bttn:hover, .bttn:hover, .edit__bttn:hover {
         opacity: 0.6;
         cursor: pointer;
     }
@@ -231,7 +240,7 @@ main.main--filter-1 {
         cursor: pointer;
     }
 
-    .test:hover {
+    .pointer:hover {
         opacity: 1;
         cursor: unset;
     }

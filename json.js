@@ -59,13 +59,15 @@ const json = {
  */
 function userTemplate() {
     return `<figure class = 'cntnr--flx flx-1'>
-                <img class ='delete' src ='./assets/delete.svg' loading ='lazy' draggable = 'false'>
+                <img class ='delete' src ='./assets/delete.svg' alt ='delete icon' loading ='lazy' draggable = 'false'>
                 <figcaption class ='delete clr--red'>Delete</figcaption>
             </figure>
             <figure class ='cntnr--flx flx-1'>
-                <img class ='edit' src ='./assets/edit.svg' loading ='lazy' draggable ='false'>
+                <img class ='edit' src ='./assets/edit.svg' alt ='edit icon' loading ='lazy' draggable ='false'>
                 <figcaption class ='edit clr--prpl'>Edit</figcaption>
-            </figure>`
+            </figure>
+            <button class ='cancel__bttn edit--cancel clr--wht elmnt--none'>CANCEL</button>
+            <button class ='edit__bttn clr--wht elmnt--none'>UPDATE</button>`
 }
 
 /**
@@ -73,12 +75,12 @@ function userTemplate() {
  * @returns {String} template string
  */
 function replyTemplate() {
-    return `<article class ="artcl__reply cntnr--wdth-100">
-                <textarea class ="reply__text cntnr--wdth-100 fnt--mdm fnt--700 elmnt--rds" id ="" placeholder ="Add a comment..."></textarea>
-                <div class ="reply__send cntnr--flx flx--jstf-btwn flx--clmn-gp-1">
-                    <img class ="user__img elmnt--abslt" src ="./assets/juliusomo.png" alt ="" loading ="lazy" draggable ="false">
-                    <button class ="reply--okay reply__bttn clr--wht elmnt--opacity elmnt--abslt">Reply</button>
-                    <button class ="reply--cancel reply__bttn clr--wht elmnt--opacity elmnt--abslt bckgrnd--red">Cancel</button>
+    return `<article class ='artcl__reply cntnr--wdth-100'>
+                <textarea class ='reply__text cntnr--wdth-100 fnt--mdm fnt--700 elmnt--rds' placeholder ='Add a comment...'></textarea>
+                <div class ='reply__send cntnr--flx flx--jstf-btwn flx--clmn-gp-1'>
+                    <img class ='user__img elmnt--abslt' src ='./assets/juliusomo.png' alt ='profile image' loading ='lazy' draggable ='false'>
+                    <button class ='reply--okay reply__bttn clr--wht elmnt--opacity elmnt--abslt'>Reply</button>
+                    <button class ='reply--cancel reply__bttn clr--wht elmnt--opacity elmnt--abslt bckgrnd--red'>Cancel</button>
                 </div>
             </article>`
 }
