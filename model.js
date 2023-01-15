@@ -3,7 +3,7 @@ import { json, replyTemplate, userTemplate } from "./json.js"
 /**
  * @template
  * @type {Element}
- * @typedef {Element}
+ * @typedef {template}
  */
 const template = document.getElementById('templateUser').content
 let replying
@@ -12,7 +12,6 @@ let lastMessage
 const comments = json.comments
 const fragment = document.createDocumentFragment()
 const mainContainer = document.querySelector('main.main__cntnr')
-
 
 document.addEventListener('click', event => {
     if (event.target.matches('.delete:not(.pointer:hover)') && !existContentEditable()) {
@@ -130,10 +129,11 @@ function addReply(event) {
 
 /**
  * 
- * @param {{target: Event, classParent: string, textClass: string, origin: string}}
+ * @param {{target: Event, classParent: String, textClass: String, origin: String}}
  * @returns {JSON} json
  */
 function valueCommentary({target, classParent, textClass, origin}) {
+    console.log({target, classParent, textClass, origin})
     const cloneTemplate = document.importNode(template, true)
     const parentNode = parentElement(target.target, classParent)
     const textValue = parentNode.querySelector(textClass)
